@@ -1,2 +1,6 @@
 # LL4P
-if not passing: merge right
+```
+if not passing: 
+   merge right
+   
+```
