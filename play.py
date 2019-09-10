@@ -1,4 +1,4 @@
-import sys, pygame, time
+import sys, pygame, time, random
 pygame.init()
 
 size = width, height = 320, 800
@@ -16,9 +16,21 @@ car_img = pygame.image.load("car.png")
 car_img = pygame.transform.scale(car_img, (100,200))
 car_rect = car_img.get_rect()
 
-cars.append( {'speed': 65, 'position':0, 'rect': car_rect, 'lane': 0})
-cars.append( {'speed': 75, 'position':0, 'rect': car_rect, 'lane': 1})
+def add_car():
+    car = {
+        'speed': random.random() * 100, 
+        'position':0, 
+        'rect': car_rect, 
+        'lane': random.random() * 2,
+        'born' : time.time(),
+        }
 
+    cars.append(car)
+
+add_car()
+add_car()
+add_car()
+add_car()
 
 start = time.time()
 
@@ -28,18 +40,19 @@ while 1:
 
     screen.fill(red)
 
-    # calculate seconds elapsed since starting
-    elapsed = time.time() - start
-
     for car in cars:
+
+        # seconds since this car was born
+        elapsed = time.time() - car['born']
 
         # calculate position based on elapsed time    
         car['position'] = car['speed'] * elapsed
         
         if car['position'] > height +200:
-            car['position'] = 0
+            car['born'] = time.time()
 
-        car['rect'].left = 10 + 200 * car['lane'] 
+
+        car['rect'].left = 10 + 100 * car['lane'] 
         car['rect'].bottom = car['position']
         
         screen.blit(car_img, car['rect'])
