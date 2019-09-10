@@ -1,4 +1,4 @@
-import sys, pygame
+import sys, pygame, time
 pygame.init()
 
 size = width, height = 320, 800
@@ -16,13 +16,11 @@ car_img = pygame.image.load("car.png")
 car_img = pygame.transform.scale(car_img, (100,200))
 car_rect = car_img.get_rect()
 
-car = {
-    'speed': 50,
-    'position': 0,
-    'rect': car_rect,
-}
+cars.append( {'speed': 65, 'position':0, 'rect': car_rect})
+cars.append( {'speed': 75, 'position':0, 'rect': car_rect})
 
-cars.append( car)
+
+start = time.time()
 
 while 1:
     for event in pygame.event.get():
@@ -30,12 +28,20 @@ while 1:
 
     screen.fill(red)
 
+    # calculate seconds elapsed since starting
+    elapsed = time.time() - start
+
     for car in cars:
-        print(car)
+
+        # calculate position based on elapsed time    
+        car['position'] = car['speed'] * elapsed
         
-        car['position'] += 1 # car['speed'] 
+        if car['position'] > height +200:
+            car['position'] = 0
+
         car['rect'].left = 10
-        car['rect'].top = car['position']
+        car['rect'].bottom = car['position']
+        
         screen.blit(car_img, car['rect'])
 
     pygame.display.flip()
