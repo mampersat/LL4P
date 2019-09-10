@@ -16,8 +16,8 @@ car_img = pygame.image.load("car.png")
 car_img = pygame.transform.scale(car_img, (100,200))
 car_rect = car_img.get_rect()
 
-cars.append( {'speed': 65, 'position':0, 'rect': car_rect})
-cars.append( {'speed': 75, 'position':0, 'rect': car_rect})
+cars.append( {'speed': 65, 'position':0, 'rect': car_rect, 'lane': 0})
+cars.append( {'speed': 75, 'position':0, 'rect': car_rect, 'lane': 1})
 
 
 start = time.time()
@@ -39,7 +39,7 @@ while 1:
         if car['position'] > height +200:
             car['position'] = 0
 
-        car['rect'].left = 10
+        car['rect'].left = 10 + 200 * car['lane'] 
         car['rect'].bottom = car['position']
         
         screen.blit(car_img, car['rect'])
