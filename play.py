@@ -11,19 +11,26 @@ screen.fill(red)
 pygame.display.update()
 
 
-ball = pygame.image.load("car.png")
-ballrect = ball.get_rect()
+car_img = pygame.image.load("car.png")
+car_img = pygame.transform.scale(car_img, (100,200))
+car_rect = car_img.get_rect()
+
+car = {
+    'speed': 50,
+    'position': 0
+}
+
 
 while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
 
-    ballrect = ballrect.move(speed)
-    if ballrect.left < 0 or ballrect.right > width:
+    car_rect = car_rect.move(speed)
+    if car_rect.left < 0 or car_rect.right > width:
         speed[0] = -speed[0]
-    if ballrect.top < 0 or ballrect.bottom > height:
+    if car_rect.top < 0 or car_rect.bottom > height:
         speed[1] = -speed[1]
 
     screen.fill(red)
-    screen.blit(ball, ballrect)
+    screen.blit(car_img, car_rect)
     pygame.display.flip()
