@@ -4,6 +4,7 @@ pygame.init()
 size = width, height = 320, 800
 speed = [1, 1]
 black = 0, 0, 0
+cars = []
 
 screen = pygame.display.set_mode(size)
 red = (255,0,0)
@@ -17,20 +18,24 @@ car_rect = car_img.get_rect()
 
 car = {
     'speed': 50,
-    'position': 0
+    'position': 0,
+    'rect': car_rect,
 }
 
+cars.append( car)
 
 while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
 
-    car_rect = car_rect.move(speed)
-    if car_rect.left < 0 or car_rect.right > width:
-        speed[0] = -speed[0]
-    if car_rect.top < 0 or car_rect.bottom > height:
-        speed[1] = -speed[1]
-
     screen.fill(red)
-    screen.blit(car_img, car_rect)
+
+    for car in cars:
+        print(car)
+        
+        car['position'] += 1 # car['speed'] 
+        car['rect'].left = 10
+        car['rect'].top = car['position']
+        screen.blit(car_img, car['rect'])
+
     pygame.display.flip()
