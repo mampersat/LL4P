@@ -21,7 +21,7 @@ def add_car():
         'speed': random.random() * 100, 
         'position':0, 
         'rect': car_rect, 
-        'lane': random.random() * 2,
+        'lane': int(random.random() * 3),
         'born' : time.time(),
         }
 
@@ -53,7 +53,7 @@ while 1:
 
 
         car['rect'].left = 10 + 100 * car['lane'] 
-        car['rect'].bottom = car['position']
+        car['rect'].bottom = height - car['position']
         
         screen.blit(car_img, car['rect'])
 
